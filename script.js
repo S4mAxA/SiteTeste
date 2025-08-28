@@ -51,6 +51,9 @@ function initializeApp() {
     
     // Initialiser les événements de scroll
     initScrollEvents();
+    
+    // Initialiser le système de particules interactives
+    new ParticleSystem();
 }
 
 // ===== NAVIGATION MOBILE =====
