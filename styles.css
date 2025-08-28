@@ -5,10 +5,10 @@
     --color-bg-secondary: #1a1f2e;
     --color-bg-tertiary: #2a2f3e;
     
-    /* Dégradés néon */
-    --gradient-primary: linear-gradient(135deg, #5B8CFF 0%, #A45CFF 100%);
-    --gradient-secondary: linear-gradient(135deg, #3B5BDB 0%, #845EF7 100%);
-    --gradient-accent: linear-gradient(135deg, #228BE6 0%, #BE4BDB 100%);
+    /* Dégradés noir et blanc */
+    --gradient-primary: linear-gradient(135deg, #FFFFFF 0%, #CCCCCC 100%);
+    --gradient-secondary: linear-gradient(135deg, #CCCCCC 0%, #999999 100%);
+    --gradient-accent: linear-gradient(135deg, #999999 0%, #666666 100%);
     
     /* Couleurs de texte */
     --color-text-primary: #FFFFFF;
@@ -21,11 +21,11 @@
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     
     /* Ombres et lueurs */
-    --shadow-sm: 0 2px 8px rgba(91, 140, 255, 0.15);
-    --shadow-md: 0 8px 25px rgba(91, 140, 255, 0.2);
-    --shadow-lg: 0 16px 50px rgba(91, 140, 255, 0.25);
-    --glow-primary: 0 0 20px rgba(91, 140, 255, 0.3);
-    --glow-secondary: 0 0 30px rgba(164, 92, 255, 0.3);
+    --shadow-sm: 0 2px 8px rgba(255, 255, 255, 0.15);
+    --shadow-md: 0 8px 25px rgba(255, 255, 255, 0.2);
+    --shadow-lg: 0 16px 50px rgba(255, 255, 255, 0.25);
+    --glow-primary: 0 0 20px rgba(255, 255, 255, 0.3);
+    --glow-secondary: 0 0 30px rgba(204, 204, 204, 0.3);
     
     /* Rayons */
     --radius-sm: 8px;

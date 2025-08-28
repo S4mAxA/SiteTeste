@@ -381,14 +381,14 @@ function showNotification(message, type = 'info') {
     // Couleurs selon le type
     switch (type) {
         case 'success':
-            notification.style.background = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+            notification.style.background = 'linear-gradient(135deg, #FFFFFF 0%, #CCCCCC 100%)';
             break;
         case 'error':
-            notification.style.background = 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)';
+            notification.style.background = 'linear-gradient(135deg, #CCCCCC 0%, #999999 100%)';
             break;
         case 'info':
         default:
-            notification.style.background = 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)';
+            notification.style.background = 'linear-gradient(135deg, #999999 0%, #666666 100%)';
             break;
     }
     
