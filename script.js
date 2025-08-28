@@ -679,3 +679,302 @@ window.addEventListener('load', function() {
         document.body.style.opacity = '1';
     }, 100);
 });
+
+// ===== EFFETS PARTICULES INTERACTIVES =====
+class ParticleSystem {
+    constructor() {
+        this.particlesContainer = null;
+        this.mouseTrails = [];
+        this.ripples = [];
+        this.gridDots = [];
+        this.connectionLines = [];
+        this.distortionEffect = null;
+        this.mouseX = 0;
+        this.mouseY = 0;
+        this.isInitialized = false;
+        
+        this.init();
+    }
+    
+    init() {
+        this.createParticlesContainer();
+        this.createGridDots();
+        this.createConnectionLines();
+        this.createDistortionEffect();
+        this.bindEvents();
+        this.startParticleGeneration();
+        this.isInitialized = true;
+    }
+    
+    createParticlesContainer() {
+        this.particlesContainer = document.createElement('div');
+        this.particlesContainer.className = 'particles-container';
+        document.body.appendChild(this.particlesContainer);
+    }
+    
+    createGridDots() {
+        const gridContainer = document.createElement('div');
+        gridContainer.className = 'grid-dots';
+        
+        const gridSize = 50;
+        const cols = Math.ceil(window.innerWidth / gridSize);
+        const rows = Math.ceil(window.innerHeight / gridSize);
+        
+        for (let i = 0; i < cols * rows; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'grid-dot';
+            dot.style.left = (i % cols) * gridSize + 'px';
+            dot.style.top = Math.floor(i / cols) * gridSize + 'px';
+            dot.style.animationDelay = Math.random() * 4 + 's';
+            gridContainer.appendChild(dot);
+            this.gridDots.push(dot);
+        }
+        
+        document.body.appendChild(gridContainer);
+    }
+    
+    createConnectionLines() {
+        for (let i = 0; i < 5; i++) {
+            const line = document.createElement('div');
+            line.className = 'connection-line';
+            line.style.top = Math.random() * window.innerHeight + 'px';
+            line.style.width = Math.random() * 200 + 100 + 'px';
+            line.style.animationDelay = Math.random() * 8 + 's';
+            line.style.left = '-200px';
+            document.body.appendChild(line);
+            this.connectionLines.push(line);
+        }
+    }
+    
+    createDistortionEffect() {
+        this.distortionEffect = document.createElement('div');
+        this.distortionEffect.className = 'distortion-effect';
+        document.body.appendChild(this.distortionEffect);
+    }
+    
+    bindEvents() {
+        document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+        document.addEventListener('click', (e) => this.handleClick(e));
+        document.addEventListener('mouseenter', () => this.handleMouseEnter());
+        document.addEventListener('mouseleave', () => this.handleMouseLeave());
+        
+        // Effet de parallaxe sur les éléments
+        document.addEventListener('mousemove', (e) => this.handleParallax(e));
+        
+        // Animation d'entrée
+        window.addEventListener('load', () => this.triggerEntranceAnimation());
+    }
+    
+    handleMouseMove(e) {
+        this.mouseX = e.clientX;
+        this.mouseY = e.clientY;
+        
+        // Mise à jour de l'effet de distorsion
+        if (this.distortionEffect) {
+            this.distortionEffect.style.setProperty('--mouse-x', this.mouseX + 'px');
+            this.distortionEffect.style.setProperty('--mouse-y', this.mouseY + 'px');
+            this.distortionEffect.classList.add('active');
+        }
+        
+        // Création de traînée de souris
+        this.createMouseTrail(e.clientX, e.clientY);
+        
+        // Attraction des particules vers la souris
+        this.attractParticles(e.clientX, e.clientY);
+    }
+    
+    handleClick(e) {
+        this.createRipple(e.clientX, e.clientY);
+        this.createParticleBurst(e.clientX, e.clientY);
+    }
+    
+    handleMouseEnter() {
+        if (this.distortionEffect) {
+            this.distortionEffect.classList.add('active');
+        }
+    }
+    
+    handleMouseLeave() {
+        if (this.distortionEffect) {
+            this.distortionEffect.classList.remove('active');
+        }
+    }
+    
+    handleParallax(e) {
+        const parallaxElements = document.querySelectorAll('.parallax-element');
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+        
+        parallaxElements.forEach((element, index) => {
+            const speed = 0.1 + (index * 0.05);
+            const x = (mouseX - 0.5) * speed * 20;
+            const y = (mouseY - 0.5) * speed * 20;
+            element.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    }
+    
+    createMouseTrail(x, y) {
+        const trail = document.createElement('div');
+        trail.className = 'mouse-trail';
+        trail.style.left = x + 'px';
+        trail.style.top = y + 'px';
+        document.body.appendChild(trail);
+        
+        this.mouseTrails.push(trail);
+        
+        setTimeout(() => {
+            if (trail.parentNode) {
+                trail.parentNode.removeChild(trail);
+            }
+            this.mouseTrails = this.mouseTrails.filter(t => t !== trail);
+        }, 600);
+    }
+    
+    createRipple(x, y) {
+        const ripple = document.createElement('div');
+        ripple.className = 'ripple';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        document.body.appendChild(ripple);
+        
+        this.ripples.push(ripple);
+        
+        setTimeout(() => {
+            if (ripple.parentNode) {
+                ripple.parentNode.removeChild(ripple);
+            }
+            this.ripples = this.ripples.filter(r => r !== ripple);
+        }, 1500);
+    }
+    
+    createParticleBurst(x, y) {
+        for (let i = 0; i < 8; i++) {
+            const particle = this.createParticle();
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            particle.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`;
+        }
+    }
+    
+    createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        const size = Math.random() * 20 + 10;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = Math.random() * window.innerWidth + 'px';
+        particle.style.top = window.innerHeight + 'px';
+        
+        this.particlesContainer.appendChild(particle);
+        
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, 20000);
+        
+        return particle;
+    }
+    
+    startParticleGeneration() {
+        setInterval(() => {
+            if (this.particlesContainer) {
+                this.createParticle();
+            }
+        }, 500);
+    }
+    
+    attractParticles(x, y) {
+        const particles = this.particlesContainer.querySelectorAll('.particle');
+        particles.forEach(particle => {
+            const rect = particle.getBoundingClientRect();
+            const particleX = rect.left + rect.width / 2;
+            const particleY = rect.top + rect.height / 2;
+            
+            const distance = Math.sqrt((x - particleX) ** 2 + (y - particleY) ** 2);
+            
+            if (distance < 100) {
+                const angle = Math.atan2(y - particleY, x - particleX);
+                const force = (100 - distance) / 100;
+                const moveX = Math.cos(angle) * force * 2;
+                const moveY = Math.sin(angle) * force * 2;
+                
+                particle.style.transform += ` translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+    }
+    
+    triggerEntranceAnimation() {
+        // Animation d'entrée pour les éléments principaux
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.classList.add('entrance-animation');
+        }
+        
+        // Animation séquentielle pour les éléments
+        const animatedElements = document.querySelectorAll('.hero-title, .hero-subtitle, .hero-cta, .hero-stats');
+        animatedElements.forEach((element, index) => {
+            setTimeout(() => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'all 0.8s ease';
+                
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 100);
+            }, index * 200);
+        });
+        
+        // Effet de révélation progressive
+        setTimeout(() => {
+            this.revealElements();
+        }, 1000);
+    }
+    
+    revealElements() {
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        revealElements.forEach(element => {
+            observer.observe(element);
+        });
+    }
+}
+
+// ===== UTILITAIRES =====
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
