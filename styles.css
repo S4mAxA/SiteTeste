@@ -13,21 +13,21 @@
     --gradient-light: linear-gradient(135deg, #404040 0%, #595959 50%, #737373 100%);
     
     /* Couleurs de texte */
-    --color-text-primary: #1a1a1a;
-    --color-text-secondary: rgba(26, 26, 26, 0.9);
-    --color-text-muted: rgba(26, 26, 26, 0.7);
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: rgba(255, 255, 255, 0.9);
+    --color-text-muted: rgba(255, 255, 255, 0.7);
     
     /* Glassmorphism */
-    --glass-bg: rgba(0, 0, 0, 0.05);
-    --glass-border: rgba(0, 0, 0, 0.1);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     
     /* Ombres et lueurs */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0 16px 50px rgba(0, 0, 0, 0.2);
-    --glow-primary: 0 0 20px rgba(0, 0, 0, 0.1);
-    --glow-secondary: 0 0 30px rgba(0, 0, 0, 0.15);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 16px 50px rgba(0, 0, 0, 0.5);
+    --glow-primary: 0 0 20px rgba(255, 255, 255, 0.1);
+    --glow-secondary: 0 0 30px rgba(255, 255, 255, 0.2);
     
     /* Rayons */
     --radius-sm: 8px;
@@ -71,9 +71,7 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--gradient-primary);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+    background: hsl(210, 30%, 0%) radial-gradient(hsl(210, 30%, 20%), hsl(210, 30%, 0%));
     color: var(--color-text-primary);
     line-height: 1.6;
     overflow-x: hidden;
@@ -195,14 +193,14 @@ p {
 }
 
 .btn-secondary {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.05);
     color: var(--color-text-primary);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(16px);
 }
 
 .btn-secondary:hover {
-    background: rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.08);
     transform: translateY(-2px) scale(1.02);
     box-shadow: var(--shadow-md);
 }
@@ -237,9 +235,9 @@ p {
 }
 
 .card-glass {
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-xl);
     padding: var(--spacing-lg);
     box-shadow: var(--glass-shadow);
@@ -249,8 +247,86 @@ p {
 .card-glass:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg), var(--glow-primary);
-    border-color: rgba(0, 0, 0, 0.15);
-    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== SPHÈRE 3D ANIMÉE ===== */
+.sphere-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    perspective: 333px;
+}
+
+.sphere {
+    animation: rot 16s linear infinite reverse;
+    width: 333px;
+    height: 333px;
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    position: relative;
+}
+
+.sphere i {
+    position: absolute;
+    width: 333px;
+    height: 333px;
+    line-height: 333px;
+    transform-style: preserve-3d;
+    border-radius: 50%;
+    backface-visibility: visible;
+    box-shadow: 0 0 83px 0 rgba(255, 255, 255, 0.1),
+                inset 0 0 83px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Génération des éléments de la sphère */
+.sphere i:nth-child(1) { transform: rotateY(11.25deg); }
+.sphere i:nth-child(2) { transform: rotateY(22.5deg); }
+.sphere i:nth-child(3) { transform: rotateY(33.75deg); }
+.sphere i:nth-child(4) { transform: rotateY(45deg); }
+.sphere i:nth-child(5) { transform: rotateY(56.25deg); }
+.sphere i:nth-child(6) { transform: rotateY(67.5deg); }
+.sphere i:nth-child(7) { transform: rotateY(78.75deg); }
+.sphere i:nth-child(8) { transform: rotateY(90deg); }
+.sphere i:nth-child(9) { transform: rotateY(101.25deg); }
+.sphere i:nth-child(10) { transform: rotateY(112.5deg); }
+.sphere i:nth-child(11) { transform: rotateY(123.75deg); }
+.sphere i:nth-child(12) { transform: rotateY(135deg); }
+.sphere i:nth-child(13) { transform: rotateY(146.25deg); }
+.sphere i:nth-child(14) { transform: rotateY(157.5deg); }
+.sphere i:nth-child(15) { transform: rotateY(168.75deg); }
+.sphere i:nth-child(16) { transform: rotateY(180deg); }
+.sphere i:nth-child(17) { transform: rotateX(11.25deg); }
+.sphere i:nth-child(18) { transform: rotateX(22.5deg); }
+.sphere i:nth-child(19) { transform: rotateX(33.75deg); }
+.sphere i:nth-child(20) { transform: rotateX(45deg); }
+.sphere i:nth-child(21) { transform: rotateX(56.25deg); }
+.sphere i:nth-child(22) { transform: rotateX(67.5deg); }
+.sphere i:nth-child(23) { transform: rotateX(78.75deg); }
+.sphere i:nth-child(24) { transform: rotateX(90deg); }
+.sphere i:nth-child(25) { transform: rotateX(101.25deg); }
+.sphere i:nth-child(26) { transform: rotateX(112.5deg); }
+.sphere i:nth-child(27) { transform: rotateX(123.75deg); }
+.sphere i:nth-child(28) { transform: rotateX(135deg); }
+.sphere i:nth-child(29) { transform: rotateX(146.25deg); }
+.sphere i:nth-child(30) { transform: rotateX(157.5deg); }
+.sphere i:nth-child(31) { transform: rotateX(168.75deg); }
+.sphere i:nth-child(32) { transform: rotateX(180deg); }
+
+@keyframes rot {
+    to {
+        transform: rotateY(360deg) rotateZ(360deg);
+    }
 }
 
 /* ===== PARTICULES INTERACTIVES ===== */
@@ -567,7 +643,7 @@ p {
     left: 0;
     right: 0;
     z-index: var(--z-navbar);
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--glass-border);
     transition: all var(--transition-normal);
@@ -816,17 +892,17 @@ p {
     text-align: center;
     padding: var(--spacing-xl);
     border-radius: var(--radius-xl);
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     transition: all var(--transition-normal);
 }
 
 .feature-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-lg), var(--glow-primary);
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .feature-icon {
@@ -866,9 +942,9 @@ p {
 }
 
 .product-card {
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-xl);
     overflow: hidden;
     transition: all var(--transition-normal);
@@ -877,8 +953,8 @@ p {
 .product-card:hover {
     transform: translateY(-8px) rotateX(5deg);
     box-shadow: var(--shadow-lg), var(--glow-primary);
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .product-image {
@@ -1064,9 +1140,9 @@ p {
     display: none;
     text-align: center;
     padding: var(--spacing-2xl);
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-xl);
     box-shadow: var(--glass-shadow);
 }
@@ -1190,9 +1266,9 @@ p {
 }
 
 .faq-item {
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-lg);
     margin-bottom: var(--spacing-md);
     overflow: hidden;
@@ -1210,7 +1286,7 @@ p {
 }
 
 .faq-question:hover {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .faq-icon {
@@ -1292,9 +1368,9 @@ p {
 }
 
 .contact-form {
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-xl);
     padding: var(--spacing-xl);
 }
@@ -1313,8 +1389,8 @@ p {
 .form-input {
     width: 100%;
     padding: var(--spacing-md);
-    background: rgba(0, 0, 0, 0.02);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-lg);
     color: var(--color-text-primary);
     font-family: inherit;
@@ -1323,9 +1399,9 @@ p {
 
 .form-input:focus {
     outline: none;
-    border-color: rgba(0, 0, 0, 0.3);
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
-    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .form-input::placeholder {
@@ -1334,9 +1410,9 @@ p {
 
 .newsletter-signup {
     text-align: center;
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-xl);
     padding: var(--spacing-xl);
 }
@@ -1491,8 +1567,8 @@ p {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.9);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: var(--spacing-lg);
     z-index: 1000;
     transform: translateY(100%);
@@ -1551,7 +1627,7 @@ p {
         left: -100%;
         width: 100%;
         height: calc(100vh - 80px);
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(0, 0, 0, 0.95);
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
