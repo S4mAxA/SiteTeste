@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-luna-bg text-luna-text font-body;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Scrollbar personnalisée */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-luna-bg-secondary;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-luna-accent rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-luna-accent-secondary;
+  }
+}
+
+@layer components {
+  /* Boutons avec style Luna */
+  .btn-primary {
+    @apply bg-luna-gradient text-white font-semibold px-8 py-4 rounded-2xl 
+           shadow-luna hover:shadow-luna-hover transition-all duration-300 
+           hover:scale-105 focus:outline-none focus:ring-4 focus:ring-luna-accent/30
+           transform hover:-translate-y-1;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent border-2 border-luna-accent text-luna-accent 
+           font-semibold px-8 py-4 rounded-2xl transition-all duration-300 
+           hover:bg-luna-accent hover:text-white hover:shadow-neon-blue
+           focus:outline-none focus:ring-4 focus:ring-luna-accent/30
+           transform hover:scale-105;
+  }
+  
+  /* Cards avec glassmorphism */
+  .card-glass {
+    @apply bg-luna-card backdrop-blur-xl border border-luna-border rounded-3xl 
+           shadow-luna hover:shadow-luna-hover transition-all duration-500
+           hover:-translate-y-2 hover:scale-[1.02];
+  }
+  
+  /* Inputs avec style Luna */
+  .input-luna {
+    @apply bg-luna-card/50 backdrop-blur-sm border border-luna-border 
+           text-luna-text placeholder-luna-muted rounded-2xl px-6 py-4
+           focus:outline-none focus:ring-2 focus:ring-luna-accent focus:border-transparent
+           transition-all duration-300;
+  }
+  
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-luna-gradient bg-clip-text text-transparent;
+  }
+  
+  /* Animations d'apparition */
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+  
+  .slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+  
+  .scale-in {
+    animation: scaleIn 0.6s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  /* Utilitaires personnalisés */
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .backdrop-blur-glass {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+  
+  /* Masque pour les coins arrondis */
+  .mask-radial {
+    mask: radial-gradient(circle at center, black 0%, transparent 70%);
+  }
+}
+
+/* Animations personnalisées */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Support pour prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
