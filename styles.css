@@ -242,7 +242,7 @@ p {
 .card-glass:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg), var(--glow-primary);
-    border-color: rgba(91, 140, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* ===== ANIMATIONS ===== */
@@ -375,8 +375,8 @@ p {
 }
 
 .logo-img {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     margin-right: var(--spacing-sm);
     border-radius: var(--radius-md);
 }
@@ -497,8 +497,8 @@ p {
 }
 
 .hero-logo-img {
-    width: 120px;
-    height: 120px;
+    width: 180px;
+    height: 180px;
     border-radius: var(--radius-2xl);
     box-shadow: var(--shadow-lg), var(--glow-primary);
 }
@@ -849,7 +849,7 @@ p {
 }
 
 .star {
-    color: #FFD700;
+    color: #FFFFFF;
     font-size: 1.5rem;
     margin: 0 2px;
 }
@@ -1090,7 +1090,7 @@ p {
 .form-input:focus {
     outline: none;
     border-color: var(--gradient-primary);
-    box-shadow: 0 0 0 3px rgba(91, 140, 255, 0.1);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 .form-input::placeholder {
@@ -1147,8 +1147,8 @@ p {
 }
 
 .footer-logo {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: var(--radius-lg);
     margin-bottom: var(--spacing-sm);
 }
